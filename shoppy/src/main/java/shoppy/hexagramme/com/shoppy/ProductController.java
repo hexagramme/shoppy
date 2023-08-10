@@ -13,13 +13,22 @@ public class ProductController {
     private final AtomicLong counter = new AtomicLong();
     private static final String defaultPrice = "9.99";
     private static final String defaultName = "Dummy Item";
-
+    
     @PostMapping("/add")
     public Product newProduct(
         @RequestParam(value = "name", defaultValue = defaultName ) String name,
         @RequestParam(value = "price", defaultValue = defaultPrice ) double price,
-        @RequestParam(value = "description", defaultValue = defaultDescription) String description,
-         ) {
+        @RequestParam(value = "description", defaultValue = defaultDescription ) String description
+        ) {
             return new Product(counter.incrementAndGet(), name, price, description);
+            //TODO: check if product name is in use/valid before creation
+            //TODO: data validation on entries
+            //TODO: append to list of all products
         }
+    @GetMapping("/view")
+    public ProductList viewAllProducts() {
+        //TODO: return actual ProductList, saved in mongo db connection
+        return new ProductList();
+    }
 }
+
